@@ -2,27 +2,29 @@
 
 class Transport
 {
-    protected string $name;
-    protected int $speed;
+    public function __construct(
+        protected string $name,
+        protected int $speed
+    ) {
+    }
+
     public function getName(): string
     {
         return $this->name;
     }
+
     public function setName(string $name): void
     {
         $this->name = $name;
     }
+
     public function getSpeed(): int
     {
         return $this->speed;
     }
+
     public function setSpeed(int $speed): void
     {
-        $this->speed = $speed;
-    }
-    public function __construct($name, $speed)
-    {
-        $this->name = $name;
         $this->speed = $speed;
     }
 
@@ -32,9 +34,11 @@ class Transport
     }
 
 }
+
 class Car extends Transport
 {
     private int $nunDoors;
+
     public function __construct($name, $speed, $nunDoors)
     {
         parent::__construct($name, $speed);
@@ -45,6 +49,7 @@ class Car extends Transport
     {
         return $this->nunDoors;
     }
+
     public function setNumDoors(int $numDoors): void
     {
         $this->nunDoors = $numDoors;
@@ -59,17 +64,32 @@ class Car extends Transport
 class Bicycle extends Transport
 {
     private int $numGears;
-    public function __construct($name, $speed, $numGears)
+    protected string $colour;
+
+    public function __construct($name, $speed, $numGears, $colour)
     {
         parent::__construct($name, $speed);
         $this->numGears = $numGears;
+        $this->colour = $colour;
     }
 
-    public function getNumGears (): int
+
+    public function getColour(): string
+    {
+        return $this->colour;
+    }
+
+    public function setColour(string $colour): void
+    {
+        $this->colour = $colour;
+    }
+
+    public function getNumGears(): int
     {
         return $this->numGears;
     }
-    public function setNumGears (int $numGears): void
+
+    public function setNumGears(int $numGears): void
     {
         $this->numGears = $numGears;
     }
@@ -78,21 +98,30 @@ class Bicycle extends Transport
     {
         return "Ring the bell on {$this->name}!!!";
     }
+
+    public function getInfo()
+    {
+        return "Name: {$this->name}, Speed: {$this->speed} km/h, Colour: {$this->colour}";
+    }
+
 }
+
 class Boat extends Transport
 {
     private int $numSeats;
+
     public function __construct($name, $speed, $numSeats)
     {
         parent::__construct($name, $speed);
-        $this->numSeats =$numSeats;
+        $this->numSeats = $numSeats;
     }
 
-    public function getNumSeats (): int
+    public function getNumSeats(): int
     {
         return $this->numSeats;
     }
-    public function setNumSeats (int $numSeats): void
+
+    public function setNumSeats(int $numSeats): void
     {
         $this->numSeats = $numSeats;
     }
@@ -106,9 +135,9 @@ class Boat extends Transport
 
 $array = [];
 $array[] = new Car('Toyota Camry', 180, 5);
-$array[] = new Bicycle('Cyclone', 35, 10);
+$array[] = new Bicycle('Cyclone', 35, 10, 'Blue');
 $array[] = new boat('G3', 70, 4);
 
-foreach($array as $item){
+foreach ($array as $item) {
     echo $item->getInfo() . PHP_EOL;
 }
